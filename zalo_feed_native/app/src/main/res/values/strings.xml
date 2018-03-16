@@ -1,3 +1,14 @@
 <resources>
-    <string name="app_name">ZaloFeed</string>
+    <string name="app_name">Zalo Feed</string>
+    <string name="image_text">
+        I asked God for a bike but I know God does not work that way. So I stole a bike and asked
+        God for forgiveness.
+    </string>
+    <string name="text">
+        My advice to other disabled  people would be, concentrate on things your
+        disability does not prevent you doing well, and do not regret the things it interferes with.
+        Do not be disabled in spirit as well as physically \n~ Stephen Hawking ~
+    </string>
+    <string name="user_name">Joker</string>
+    <string name="post_time">3 hours ago</string>
 </resources>
