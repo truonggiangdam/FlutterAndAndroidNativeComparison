@@ -6,8 +6,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
+
+import org.json.JSONObject;
 
 import java.util.List;
 
@@ -15,7 +18,7 @@ import java.util.List;
  * Created by cpu11326-local on 16/03/2018.
  */
 
-public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.FeedViewHolder> {
     List<FeedItem> mListData;
     Context mContext;
 
@@ -30,7 +33,7 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     }
 
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public FeedViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(mContext);
         View itemView;
         switch (viewType) {
@@ -47,56 +50,128 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(FeedViewHolder holder, int position) {
         FeedItem data = mListData.get(position);
 
+        bindTop(data, holder.imageAvatar, holder.textUserName, holder.textPostTime);
+        bindBottom(data, holder.textTotalLike, holder.textTotalComment);
+
         if(holder instanceof FeedLinkViewHolder) {
-            bindFeedLink((FeedLinkViewHolder)holder, data, position);
+            bindFeedLink((FeedLinkViewHolder)holder, data);
         } else if (holder instanceof FeedPhotoViewHolder) {
-            bindFeedPhoto((FeedPhotoViewHolder)holder, data, position);
+            bindFeedPhoto((FeedPhotoViewHolder)holder, data);
         } else {
-            bindFeedText((FeedTextViewHolder)holder, data, position);
+            bindFeedText((FeedTextViewHolder)holder, data);
         }
     }
 
-    private void bindFeedText(FeedTextViewHolder holder, FeedItem data, int position) {
+    private void bindFeedText(FeedTextViewHolder holder, FeedItem data) {
+        holder.textViewContent.setText(data.text);
+    }
+
+    private void bindFeedPhoto(FeedPhotoViewHolder holder, FeedItem data) {
+        holder.textViewContent.setText(data.imageText);
+        ImageHelper.displayImage(data.imageUrl, holder.imageViewContent, false);
+    }
+
+    private void bindFeedLink(final FeedLinkViewHolder holder, final FeedItem data) {
+
+        //set placeholder
+        holder.imageViewThumbnail.setImageResource(R.drawable.place_holder);
+
+        String url = FeedUtils.buildUri(data.link);
+        ApiHelper.getJsonData(url, new ApiHelper.ApiCallback() {
+            @Override
+            public void getApiDone(String result) {
+                JSONObject jsonObject = FeedUtils.parseJson(result);
+                if(jsonObject != null) {
+                    String thumbnailUrl = FeedUtils.getThumbnailYoutubeVideo(jsonObject);
+                    String title = FeedUtils.getTitleYoutubeVideo(jsonObject);
+
+                    ImageHelper.displayImage(thumbnailUrl, holder.imageViewThumbnail, false);
+                    holder.textViewTitle.setText(title);
+                    holder.textViewDomain.setText("www.youtube.com");
+                }
+
+            }
+
+            @Override
+            public void getApiFailed() {
+            }
+        });
 
     }
 
-    private void bindFeedPhoto(FeedPhotoViewHolder holder, FeedItem data, int position) {
-
+    private void bindTop(FeedItem data, ImageView imageAvatar, TextView textUserName, TextView textPostTime) {
+        ImageHelper.displayImage(data.avatarUrl, imageAvatar, true);
+        textUserName.setText(data.userName);
+        textPostTime.setText(data.postTime);
     }
 
-    private void bindFeedLink(FeedLinkViewHolder holder, FeedItem data, int position) {
-        Picasso.get().load(data.avatarUrl).into(holder.imageAvatar);
+    private void bindBottom(FeedItem data, TextView textTotalLike, TextView textTotalComment) {
+        textTotalLike.setText(String.valueOf(data.totalLike));
+        textTotalComment.setText(String.valueOf(data.totalComment));
     }
+
+
 
     @Override
     public int getItemCount() {
         return mListData.size();
     }
 
-    private static class FeedLinkViewHolder extends RecyclerView.ViewHolder {
+    public static class FeedViewHolder extends RecyclerView.ViewHolder {
 
         ImageView imageAvatar;
+        TextView textUserName;
+        TextView textPostTime;
+        TextView textTotalLike;
+        TextView textTotalComment;
+
+        public FeedViewHolder(View itemView) {
+            super(itemView);
+            imageAvatar = itemView.findViewById(R.id.imageAvatar);
+            textUserName = itemView.findViewById(R.id.textUserName);
+            textPostTime = itemView.findViewById(R.id.textPostTime);
+            textTotalLike = itemView.findViewById(R.id.textViewLike);
+            textTotalComment = itemView.findViewById(R.id.textViewComment);
+        }
+    }
+
+
+    public static class FeedLinkViewHolder extends FeedViewHolder {
+
+        ImageView imageViewThumbnail;
+        TextView textViewTitle;
+        TextView textViewDomain;
 
         public FeedLinkViewHolder(View itemView) {
             super(itemView);
-            imageAvatar = itemView.findViewById(R.id.imageAvatar);
+            imageViewThumbnail = itemView.findViewById(R.id.imageViewThumbnail);
+            textViewTitle = itemView.findViewById(R.id.textViewVideoTitle);
+            textViewDomain = itemView.findViewById(R.id.textViewDomain);
         }
     }
 
-    private static class FeedPhotoViewHolder extends RecyclerView.ViewHolder {
+    public static class FeedPhotoViewHolder extends FeedViewHolder {
+
+        ImageView imageViewContent;
+        TextView textViewContent;
 
         public FeedPhotoViewHolder(View itemView) {
             super(itemView);
+            imageViewContent = itemView.findViewById(R.id.imageViewContent);
+            textViewContent = itemView.findViewById(R.id.textViewContent);
         }
     }
 
-    private static class FeedTextViewHolder extends RecyclerView.ViewHolder {
+    public static class FeedTextViewHolder extends FeedViewHolder {
+
+        TextView textViewContent;
 
         public FeedTextViewHolder(View itemView) {
             super(itemView);
+            textViewContent = itemView.findViewById(R.id.textViewContent);
         }
     }
 }

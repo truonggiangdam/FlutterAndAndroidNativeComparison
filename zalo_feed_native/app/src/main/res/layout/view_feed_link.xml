@@ -1,16 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     tools:context="com.giangdam.zalofeed.FeedActivity"
     android:layout_marginTop="8dp"
     android:layout_marginBottom="8dp"
-    android:background="@color/colorBackgroundBright">
+    android:background="@color/colorBackgroundBright"
+    android:orientation="vertical">
 
-   <include android:id="@+id/top"
+   <include
+       android:id="@+id/top"
        layout="@layout/view_feed_top"
        />
 
-</RelativeLayout>
+   <include
+      android:id="@+id/body"
+      layout="@layout/view_feed_link_body"/>
+
+   <include
+       android:id="@+id/bottom"
+       layout="@layout/view_feed_bottom" />
+
+</LinearLayout>

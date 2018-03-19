@@ -1,9 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    tools:context="com.giangdam.zalofeed.FeedActivity">
+    android:layout_height="match_parent"
+    android:paddingBottom="16dp"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    tools:context="com.giangdam.zalofeed.FeedActivity"
+    tools:layout_editor_absoluteY="81dp">
 
+
+    <ImageView
+        android:id="@+id/imageViewDecoration"
+        android:layout_width="0dp"
+        android:layout_height="0.5dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@color/colorBackGroundDark" />
+
+    <ImageView
+        android:id="@+id/imageLike"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewDecoration"
+        app:srcCompat="@drawable/ic_favorite_border_black_24dp" />
+
+    <ImageView
+        android:id="@+id/imageComment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textViewLike"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewDecoration"
+        app:srcCompat="@drawable/ic_chat_bubble_outline_black_24dp" />
+
+    <TextView
+        android:id="@+id/textViewLike"
+        style="@style/NormalText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="10"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imageLike"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewDecoration" />
+
+    <TextView
+        android:id="@+id/textViewComment"
+        style="@style/NormalText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="6"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imageComment"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewDecoration" />
+
+    <ImageView
+        android:id="@+id/imageMore"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewDecoration"
+        app:srcCompat="@drawable/ic_more_horiz_black_24dp" />
 
 </android.support.constraint.ConstraintLayout>

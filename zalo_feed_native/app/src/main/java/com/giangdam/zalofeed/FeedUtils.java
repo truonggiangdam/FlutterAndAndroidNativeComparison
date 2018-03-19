@@ -2,6 +2,9 @@ package com.giangdam.zalofeed;
 
 import android.content.Context;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,7 +25,7 @@ public class FeedUtils {
 
     public static List<FeedItem> generateFakeData(Context context) {
         List<FeedItem> list = new ArrayList<>();
-        for(int i = 0; i< 100; i++) {
+        for(int i = 0; i< 1000; i++) {
            list.add(
              i % 2 == 0 ? generateFeedLink(context)
                      : (i % 3 == 0 ? generateFeedPhoto(context) : generateFeedText(context))
@@ -62,5 +65,41 @@ public class FeedUtils {
         item.totalLike = TOTAL_LIKE;
         item.totalComment = TOTAL_COMMENT;
         return item;
+    }
+
+
+    public static JSONObject parseJson(String json) {
+        try {
+            return new JSONObject(json);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    public static String getTitleYoutubeVideo(JSONObject object) {
+        try {
+            return object.getString("title");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    public static String getThumbnailYoutubeVideo(JSONObject object) {
+        try {
+            return object.getString("thumbnail_url");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static String buildUri(String link) {
+        return "https://www.youtube.com/oembed?url=" +
+                link +
+                "&format=json";
     }
 }

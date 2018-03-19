@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="16dp"
+    tools:context="com.giangdam.zalofeed.FeedActivity">
+
+
+    <ImageView
+        android:id="@+id/imageViewThumbnail"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:adjustViewBounds="true"
+        android:scaleType="centerCrop"
+        app:layout_constraintDimensionRatio="16:9"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@android:drawable/alert_dark_frame" />
+
+    <TextView
+        android:id="@+id/textViewVideoTitle"
+        style="@style/TitleText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Thuong Em La Dieu Khong The Ngo - Triet Pham"
+        app:layout_constraintEnd_toStartOf="@+id/textViewShare"
+        app:layout_constraintStart_toStartOf="@+id/imageViewThumbnail"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewThumbnail" />
+
+    <TextView
+        android:id="@+id/textViewDomain"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="www.youtube.com"
+        style="@style/DescriptionText"
+        app:layout_constraintStart_toStartOf="@+id/textViewVideoTitle"
+        app:layout_constraintTop_toBottomOf="@+id/textViewVideoTitle" />
+
+    <TextView
+        android:id="@+id/textViewShare"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/rounded_background"
+        android:paddingBottom="6dp"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:paddingTop="6dp"
+        android:text="SHARE"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:layout_marginLeft="16dp"
+        app:layout_constraintEnd_toEndOf="@+id/imageViewThumbnail"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewThumbnail" />
+</android.support.constraint.ConstraintLayout>
