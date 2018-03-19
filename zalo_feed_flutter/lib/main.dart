@@ -24,7 +24,7 @@ List<FeedItem> _generateItemList() {
       'with. Do not be disabled in spirit as well as physically \n~ Stephen Hawking ~';
 
   return new List<FeedItem>.generate(
-      100, (i) =>
+      1000, (i) =>
   i % 2 == 0 ? new FeedLink(youtubeLink, userName, avatarUrl, postTime, totalLike, totalComment)
       : (i % 3 == 0 ? new FeedPhoto(imageUrl, imageText, userName, avatarUrl, postTime, totalLike, totalComment)
       : new FeedText(text, userName, avatarUrl, postTime, totalLike, totalComment)));
@@ -114,7 +114,7 @@ class _MyFeedPageState  extends State<MyFeedPage>{
                   placeholder: kTransparentImage,
                   image: thumbnailUrl,
                   fit: BoxFit.fill,
-                  imageScale: 0.5,
+                  imageScale: 0.2,
               ),
             ),
             new Row(
